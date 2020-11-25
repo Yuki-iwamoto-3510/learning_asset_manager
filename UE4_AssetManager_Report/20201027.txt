@@ -1,0 +1,26 @@
+■PrimaryDataAssetクラスを継承した独自のデータアセットクラスを作成してみる
+※これをする利点として、自由にプロパティを用意し、データアセット設定画面にて値を入れることができる。
+　今回はアイテム名とアイテムの種類（武器・防具など）のプロパティを持つアイテムのデータアセットクラスを作成する。
+
+UCLASS()
+class TESTASSETMANAGER_API UItemDataAsset : public UPrimaryDataAsset
+{
+	GENERATED_BODY()
+
+public:
+
+	/// <summary>
+	/// アイテム名
+	/// </summary>
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnry, Category = Item)
+		FText ItemName;
+
+	/// <summary>
+	/// アイテムタイプ
+	/// </summary>
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnry, Category = Item)
+		FPrimaryAssetType ItemType;
+
+	virtual FPrimaryAssetId GetPrimaryAssetId() const override;
+
+};

@@ -1,0 +1,12 @@
+■実際にアセットマネージャー管理になったアセットをロードしてみる
+※PrimaryAssetLabelをロードするケース。なおPrimaryAssetLabelは最初からプロジェクト設定->アセットマネージャー設定にて登録されている。
+ただしCock Ruleの初期設定がUnknownになっているので、希望の設定に変更しておく。
+
+①ブループリントを作成して、イベントグラフにてBeginPlayからAsyncLoadPrimaryAssetノードを接続。
+②ノード内のPrimaryAssetにて読み込みたいPrimaryAssetLabelを選択する。
+③「配列を作成」というノードを作成し、そこにケースに合わせて文字列を指定する。
+   ・ Label Assets in My Directoryで指定したSecondary Assetをロードする場合はDirectoryを含む文字列配列を渡す
+    ・Explicit Assets/Blueprints で指定したSecondary Assetをロードする場合はExplicitを含む文字列配列を渡す
+    ・Asset Collection で指定したSecondary Assetをロードする場合はCollectionを含む文字列配列を渡す
+④ロードが完了するとノード内のCompletedに繋がる処理が走るので、そこから任意の処理に繋げていく。
+⑤EndPlayノードを作成し、そこにUnloadPrimaryAssetノードを接続。

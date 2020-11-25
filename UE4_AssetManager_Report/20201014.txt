@@ -1,0 +1,17 @@
+■PrimaryDataAssetとPrimaryAssetLabelについて
+　・PrimaryDataAsset
+　　　アセットマネージャーによる管理に特化したDataAsset。
+　　　ただしそのままではロードしたいアセットを登録する仕組みがないので、
+　　　PrimaryDataAssetを継承したC++クラスを作成し、その作成したC++クラスに対してロード対象のアセットを登録できるようにする必要がある。
+　　　C++側での対応が必要なので非エンジニアには不向き。
+　・PrimaryAssetLabel
+　　　PrimaryDataAssetの派生クラスであり、セカンダリーアセットを管理するための仕組みがデフォルトで用意されている。
+　　　C++を使わずとも扱えるので非エンジニアにも使える。
+
+
+■実際にアセットマネージャー管理になったアセットをロードしてみる
+※今回はPrimaryDataAssetをロードするケース
+①ブループリントを作成して、イベントグラフにてBeginPlayからAsyncLoadPrimaryAssetノードを接続。
+②ノード内のPrimaryAssetにて読み込みたいデータアセットを選択する。
+③ロードが完了するとノード内のCompletedに繋がる処理が走るので、そこから任意の処理に繋げていく。
+④EndPlayノードを作成し、そこにUnloadPrimaryAssetノードを接続。
