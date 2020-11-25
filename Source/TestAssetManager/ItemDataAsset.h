@@ -19,13 +19,13 @@ public:
 	/// <summary>
 	/// アイテム名
 	/// </summary>
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnry, Category = Item)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Item)
 		FText ItemName;
 
 	/// <summary>
 	/// アイテムタイプ
 	/// </summary>
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnry, Category = Item)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Item)
 		FPrimaryAssetType ItemType;
 
 	virtual FPrimaryAssetId GetPrimaryAssetId() const override;
