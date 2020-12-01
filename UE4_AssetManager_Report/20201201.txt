@@ -1,0 +1,26 @@
+■第○回で作成した自作のデータアセットクラスを継承したクラスを作成してみる
+これが実際のデータを設定するクラスとなる
+今回は武器アイテム・防具アイテムの分のデータアセットクラスを用意
+
+
+/// <summary>
+/// 武器アイテム
+/// </summary>
+class TESTASSETMANAGER_API UItemDataAsset_WeaponItem : public UItemDataAsset
+{
+	GENERATED_BODY()
+	
+public:
+
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	UItemDataAsset_WeaponItem()
+	{
+		ItemType = UMyAssetManager::WeaponItemType;
+	}
+
+	// アクター
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WeaponItem")
+	TSubclassOf<AActor> Actor;
+};
