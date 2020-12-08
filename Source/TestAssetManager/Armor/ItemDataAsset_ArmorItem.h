@@ -7,9 +7,15 @@
 #include "../MyAssetManager.h"
 #include "ItemDataAsset_ArmorItem.generated.h"
 
-/// <summary>
-/// 防具アイテム
-/// </summary>
+UENUM(BlueprintType)
+enum class EArmorPartsType : uint8
+{
+	Helmet,
+	Body,
+	Arm,
+	Leg,
+};
+
 UCLASS()
 class TESTASSETMANAGER_API UItemDataAsset_ArmorItem : public UItemDataAsset
 {
@@ -26,5 +32,9 @@ public:
 
 	// アクター
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "ArmorItem")
-		TSubclassOf<AActor> Actor;
+	TSubclassOf<AActor> Actor;
+
+	// 防具部位タイプ
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "ArmorItem")
+	EArmorPartsType armorPartsType;
 };

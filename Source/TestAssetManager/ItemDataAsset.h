@@ -6,28 +6,29 @@
 #include "Engine/DataAsset.h"
 #include "ItemDataAsset.generated.h"
 
-/**
- * 
- */
-UCLASS()
+UCLASS(Abstract, BlueprintType)
 class TESTASSETMANAGER_API UItemDataAsset : public UPrimaryDataAsset
 {
 	GENERATED_BODY()
 
 public:
+	// プライマリアセットID名を取得する
+	UFUNCTION(BlueprintCallable, Category = "UItemDataAsset")
+		FString GetIdentifierString() const;
+
+	// プライマリアセットIDを取得する（要オーバーライド）
+	virtual FPrimaryAssetId GetPrimaryAssetId() const override;
 
 	/// <summary>
 	/// アイテム名
 	/// </summary>
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Item)
-		FText ItemName;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UItemDataAsset")
+	FText ItemName;
 
 	/// <summary>
 	/// アイテムタイプ
 	/// </summary>
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Item)
-		FPrimaryAssetType ItemType;
-
-	virtual FPrimaryAssetId GetPrimaryAssetId() const override;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UItemDataAsset")
+	FPrimaryAssetType ItemType;
 
 };

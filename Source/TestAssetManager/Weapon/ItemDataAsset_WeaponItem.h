@@ -7,6 +7,13 @@
 #include "../MyAssetManager.h"
 #include "ItemDataAsset_WeaponItem.generated.h"
 
+UENUM(BlueprintType)
+enum class EWeaponType : uint8
+{
+	Sword,
+	Axe,
+};
+
 /// <summary>
 /// 武器アイテム
 /// </summary>
@@ -17,15 +24,17 @@ class TESTASSETMANAGER_API UItemDataAsset_WeaponItem : public UItemDataAsset
 
 public:
 
-	/// <summary>
-	/// コンストラクタ
-	/// </summary>
-	UItemDataAsset_WeaponItem()
+	// コンストラクタ
+	UItemDataAsset_WeaponItem() 
 	{
 		ItemType = UMyAssetManager::WeaponItemType;
 	}
 
 	// アクター
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WeaponItem")
-		TSubclassOf<AActor> Actor;
+	TSubclassOf<AActor> Actor;
+
+	// 武器タイプ
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WeaponItem")
+	EWeaponType weaponType;
 };

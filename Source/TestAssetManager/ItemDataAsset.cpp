@@ -3,8 +3,16 @@
 
 #include "ItemDataAsset.h"
 
+
+// プライマリアセットID名を取得する
+FString UItemDataAsset::GetIdentifierString() const
+{
+    return GetPrimaryAssetId().ToString();
+}
+
+// プライマリアセットIDを取得する
 FPrimaryAssetId UItemDataAsset::GetPrimaryAssetId() const
 {
-	return FPrimaryAssetId(ItemType, GetFName());
+    return FPrimaryAssetId(ItemType, GetFName());
 }
 
