@@ -1,12 +1,3 @@
-■　で作成した自作のデータアセットクラスを継承したクラスを作成してみる
-これが実際のデータを設定するクラスとなる
-
-↑
-これ次回やる
-
-
-
-
 ■自前のアセットマネージャークラスを作成してみる
 class TESTASSETMANAGER_API UMyAssetManager : public UAssetManager
 {

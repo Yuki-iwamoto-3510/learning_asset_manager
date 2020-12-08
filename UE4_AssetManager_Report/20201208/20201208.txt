@@ -1,0 +1,35 @@
+今回は防具アイテムのデータアセットクラスを用意
+防具アイテム専用の項目として「防具部位タイプ」を作成
+
+
+UENUM(BlueprintType)
+enum class EArmorPartsType : uint8
+{
+	Helmet,
+	Body,
+	Arm,
+	Leg,
+};
+
+UCLASS()
+class TESTASSETMANAGER_API UItemDataAsset_ArmorItem : public UItemDataAsset
+{
+	GENERATED_BODY()
+
+public:
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	UItemDataAsset_ArmorItem()
+	{
+		ItemType = UMyAssetManager::ArmorItemType;
+	}
+
+	// アクター
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "ArmorItem")
+	TSubclassOf<AActor> Actor;
+
+	// 防具部位タイプ
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "ArmorItem")
+	EArmorPartsType armorPartsType;
+};

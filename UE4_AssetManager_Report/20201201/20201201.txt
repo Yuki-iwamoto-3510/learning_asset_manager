@@ -1,0 +1,41 @@
+■第○回で作成した自作のデータアセットクラスを継承したクラスを作成してみる
+これが実際のデータを設定するクラスとなる
+今回は武器アイテムのデータアセットクラスを用意
+武器アイテム専用の項目として「武器タイプ」を作成
+
+#include "CoreMinimal.h"
+#include "../ItemDataAsset.h"
+#include "../MyAssetManager.h"
+#include "ItemDataAsset_WeaponItem.generated.h"
+
+UENUM(BlueprintType)
+enum class EWeaponType : uint8
+{
+	Sword,
+	Axe,
+};
+
+/// <summary>
+/// 武器アイテム
+/// </summary>
+UCLASS()
+class TESTASSETMANAGER_API UItemDataAsset_WeaponItem : public UItemDataAsset
+{
+	GENERATED_BODY()
+
+public:
+
+	// コンストラクタ
+	UItemDataAsset_WeaponItem() 
+	{
+		ItemType = UMyAssetManager::WeaponItemType;
+	}
+
+	// アクター
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WeaponItem")
+	TSubclassOf<AActor> Actor;
+
+	// 武器タイプ
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WeaponItem")
+	EWeaponType weaponType;
+};
