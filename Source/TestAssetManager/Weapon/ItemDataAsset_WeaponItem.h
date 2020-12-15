@@ -30,9 +30,9 @@ public:
 		ItemType = UMyAssetManager::WeaponItemType;
 	}
 
-	// アクター
+	// アセットモデル
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WeaponItem")
-	TSubclassOf<AActor> Actor;
+	UStaticMesh* weaponModel;
 
 	// 武器タイプ
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WeaponItem")
