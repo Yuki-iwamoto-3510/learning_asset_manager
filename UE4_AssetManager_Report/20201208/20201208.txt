@@ -25,9 +25,9 @@ public:
 		ItemType = UMyAssetManager::ArmorItemType;
 	}
 
-	// アクター
+	// アセットモデル
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "ArmorItem")
-	TSubclassOf<AActor> Actor;
+	USkeletalMesh* armorModel;
 
 	// 防具部位タイプ
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "ArmorItem")
