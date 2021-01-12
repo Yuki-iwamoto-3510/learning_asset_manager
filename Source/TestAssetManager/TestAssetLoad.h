@@ -10,7 +10,7 @@ UCLASS()
 class TESTASSETMANAGER_API ATestAssetLoad : public AActor
 {
 	GENERATED_BODY()
-	
+
 public:	
 	// Sets default values for this actor's properties
 	ATestAssetLoad();
@@ -23,4 +23,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintCallable, Category = "MyFunc")
+	void DrawItem();
 };
