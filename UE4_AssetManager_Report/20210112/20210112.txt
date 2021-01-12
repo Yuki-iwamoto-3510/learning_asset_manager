@@ -1,5 +1,19 @@
 ■AssetManagerからロード済みのオブジェクトを取得する
-今回はロードした武器アイテムのオブジェクトを取得して画面に描画してみる。
+今回はロードしたアイテムのオブジェクトを取得してみる。
 AssetManagerクラスのGetPrimaryAssetObject()でPrimaryAssetIdを指定すればロード済みオブジェクトを取得することができる。
 ただそれだと一つずつの取得となるので、今回はGetPrimaryAssetDataList()でPrimaryAssetTypeを指定して、該当するオブジェクトのリストを取得する。
 
+void ATestAssetLoad::BeginPlay()
+{
+	Super::BeginPlay();
+
+	// 自作アセットマネージャークラス取得
+	UMyAssetManager& assetManager = UMyAssetManager::GetObj();
+
+	// 武器アセットのリストを取得
+	assetManager.GetPrimaryAssetDataList(assetManager.WeaponItemType, weaponList);
+
+	// 防具アセットのリストを取得
+	assetManager.GetPrimaryAssetDataList(assetManager.ArmorItemType, armorList);
+	
+}
