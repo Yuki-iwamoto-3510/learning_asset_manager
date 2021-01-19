@@ -30,10 +30,6 @@ public:
 		ItemType = UMyAssetManager::ArmorItemType;
 	}
 
-	// アセットモデル
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "ArmorItem")
-	UStaticMesh* armorModel;
-
 	// 防具部位タイプ
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "ArmorItem")
 	EArmorPartsType armorPartsType;
