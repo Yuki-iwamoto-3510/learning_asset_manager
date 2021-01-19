@@ -30,10 +30,6 @@ public:
 		ItemType = UMyAssetManager::WeaponItemType;
 	}
 
-	// アセットモデル
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WeaponItem")
-	UStaticMesh* weaponModel;
-
 	// 武器タイプ
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WeaponItem")
 	EWeaponType weaponType;
