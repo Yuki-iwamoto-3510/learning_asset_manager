@@ -31,4 +31,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UItemDataAsset")
 	FPrimaryAssetType ItemType;
 
+	// アセットモデル
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UItemDataAsset")
+	UStaticMesh* ItemModel;
 };

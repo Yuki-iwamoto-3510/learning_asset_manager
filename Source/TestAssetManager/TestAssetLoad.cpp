@@ -3,6 +3,10 @@
 
 #include "TestAssetLoad.h"
 #include "MyAssetManager.h"
+#include <TestAssetManager\ItemDataAsset.h>
+#include <TestAssetManager\Weapon\ItemDataAsset_WeaponItem.h>
+#include <TestAssetManager\Armor\ItemDataAsset_ArmorItem.h>
+#include <TestAssetManager\ItemActor.h>
 
 TArray<FAssetData> weaponList;
 TArray<FAssetData> armorList;
@@ -24,8 +28,8 @@ void ATestAssetLoad::DrawItem()
 {
 	UE_LOG(LogTemp, Display, TEXT("Start Draw Load Item"))
 
-	// 自作アセットマネージャークラス取得
-	UMyAssetManager& assetManager = UMyAssetManager::GetObj();
+		// 自作アセットマネージャークラス取得
+		UMyAssetManager& assetManager = UMyAssetManager::GetObj();
 
 	// 武器アセットのリストを取得
 	assetManager.GetPrimaryAssetDataList(assetManager.WeaponItemType, weaponList);
@@ -33,12 +37,47 @@ void ATestAssetLoad::DrawItem()
 	// 防具アセットのリストを取得
 	assetManager.GetPrimaryAssetDataList(assetManager.ArmorItemType, armorList);
 
-	//TArray<UObject*> createWeapons;
-	for(FAssetData asset : weaponList)
+	// ワールド取得
+	UWorld* world = GetWorld();
+
+	// 武器
+	FVector weaponLocationOffset = FVector(0, 200, 570);
+	for (int i = 0;i < weaponList.Num();i++)
 	{
-		//FString name = asset.AssetName.ToString();
-		//UE_LOG(LogTemp, Display, TEXT("アセット名：%s\n"), (const char*)TCHAR_TO_ANSI(*name));
-		//createWeapons.Add(NewObject<UObject>(asset.GetAsset()));
+		UItemDataAsset_WeaponItem* weaponDataAsset = Cast<UItemDataAsset_WeaponItem>(weaponList[i].GetAsset());
+		if (weaponDataAsset)
+		{
+			// ワールドにアクターを生成
+			AItemActor* actor = world->SpawnActor<AItemActor>();
+
+			// アクターにアセットマネージャーから取得したロード済みのスタティックメッシュをセット
+			actor->SetStaticMesh(weaponDataAsset->ItemModel);
+
+			// ワールドでのトランスフォーム設定
+			FVector actorLocation = FVector(weaponLocationOffset.X, weaponLocationOffset.Y * i, weaponLocationOffset.Z);
+			actor->SetActorLocation(actorLocation);
+			actor->SetActorRotation(FRotator(0, 90, 90));
+		}
+	}
+
+	// 防具
+	FVector armorLocationOffset = FVector(0, 200, 460);
+	for (int i = 0;i < armorList.Num();i++)
+	{
+		UItemDataAsset_ArmorItem* armorDataAsset = Cast<UItemDataAsset_ArmorItem>(armorList[i].GetAsset());
+		if (armorDataAsset)
+		{
+			// ワールドにアクターを生成
+			AItemActor* actor = world->SpawnActor<AItemActor>();
+
+			// アクターにアセットマネージャーから取得したロード済みのスタティックメッシュをセット
+			actor->SetStaticMesh(armorDataAsset->ItemModel);
+
+			// ワールドでのトランスフォーム設定
+			FVector actorLocation = FVector(armorLocationOffset.X, armorLocationOffset.Y * i, armorLocationOffset.Z);
+			actor->SetActorLocation(actorLocation);
+			actor->SetActorRotation(FRotator(0, 90, 90));
+		}
 	}
 }
 
