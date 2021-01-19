@@ -3,10 +3,29 @@
 AssetManagerクラスのGetPrimaryAssetObject()でPrimaryAssetIdを指定すればロード済みオブジェクトを取得することができる。
 ただそれだと一つずつの取得となるので、今回はGetPrimaryAssetDataList()でPrimaryAssetTypeを指定して、該当するオブジェクトのリストを取得する。
 
-void ATestAssetLoad::BeginPlay()
+class TESTASSETMANAGER_API ATestAssetLoad : public AActor
 {
-	Super::BeginPlay();
+	GENERATED_BODY()
 
+public:	
+	// Sets default values for this actor's properties
+	ATestAssetLoad();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+public:	
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	// このUFUNCTIONの指定をすることで、ブループリント上からこのメソッドを呼び出すことができる
+	UFUNCTION(BlueprintCallable, Category = "MyFunc")
+	void DrawItem();
+};
+
+void ATestAssetLoad::DrawItem()
+{
 	// 自作アセットマネージャークラス取得
 	UMyAssetManager& assetManager = UMyAssetManager::GetObj();
 
@@ -15,5 +34,4 @@ void ATestAssetLoad::BeginPlay()
 
 	// 防具アセットのリストを取得
 	assetManager.GetPrimaryAssetDataList(assetManager.ArmorItemType, armorList);
-	
 }

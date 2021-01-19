@@ -1,0 +1,58 @@
+■今回は取得アセットをキャストする時に、武器と防具で別々のクラスにしたが、
+　武器アセットデータクラスと防具アセットデータクラスのメンバで差異がほぼないので、
+　分けずに基底クラスのItemDataAssetでキャストするのも良いかと思われる。
+
+void ATestAssetLoad::DrawItem()
+{
+	// 自作アセットマネージャークラス取得
+	UMyAssetManager& assetManager = UMyAssetManager::GetObj();
+
+	// 武器アセットのリストを取得
+	assetManager.GetPrimaryAssetDataList(assetManager.WeaponItemType, weaponList);
+
+	// 防具アセットのリストを取得
+	assetManager.GetPrimaryAssetDataList(assetManager.ArmorItemType, armorList);
+
+	// ワールド取得
+	UWorld* world = GetWorld();
+
+	// 武器
+	FVector weaponLocationOffset = FVector(0, 200, 570);
+	for (int i = 0;i < weaponList.Num();i++)
+	{
+		UItemDataAsset_WeaponItem* weaponDataAsset = Cast<UItemDataAsset_WeaponItem>(weaponList[i].GetAsset());
+		if (weaponDataAsset)
+		{
+			// ワールドにアクターを生成
+			AItemActor* actor = world->SpawnActor<AItemActor>();
+
+			// アクターにアセットマネージャーから取得したロード済みのStaticMeshをセット
+			actor->SetStaticMesh(weaponDataAsset->ItemModel);
+
+			// ワールドでのトランスフォーム設定
+			FVector actorLocation = FVector(weaponLocationOffset.X, weaponLocationOffset.Y * i, weaponLocationOffset.Z);
+			actor->SetActorLocation(actorLocation);
+			actor->SetActorRotation(FRotator(0, 90, 90));
+		}
+	}
+
+	// 防具
+	FVector armorLocationOffset = FVector(0, 200, 460);
+	for (int i = 0;i < armorList.Num();i++)
+	{
+		UItemDataAsset_ArmorItem* armorDataAsset = Cast<UItemDataAsset_ArmorItem>(armorList[i].GetAsset());
+		if (armorDataAsset)
+		{
+			// ワールドにアクターを生成
+			AItemActor* actor = world->SpawnActor<AItemActor>();
+
+			// アクターにアセットマネージャーから取得したロード済みのStaticMeshをセット
+			actor->SetStaticMesh(armorDataAsset->ItemModel);
+
+			// ワールドでのトランスフォーム設定
+			FVector actorLocation = FVector(armorLocationOffset.X, armorLocationOffset.Y * i, armorLocationOffset.Z);
+			actor->SetActorLocation(actorLocation);
+			actor->SetActorRotation(FRotator(0, 90, 90));
+		}
+	}
+}

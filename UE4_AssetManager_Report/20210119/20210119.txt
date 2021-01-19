@@ -1,1 +1,38 @@
-■前回ロードしたアイテムを取得したので、今回はそれをレベルに配置してみる
+■前回ロードしたアセットを取得したので、今回はそれをワールドに配置してみる
+具体的には以下の手順で進行していく
+
+①ワールドに配置する用の、AActorを継承したクラスを作成する
+①取得したアセットをキャストして、自作のデータアセットクラスを参照できるようにする
+②データアセットクラスが持っているStaticMeshを取得
+③ワールドにアクターを生成し、そのアクターに取得したStaticMeshをセット
+
+・ワールドに配置する用のクラス
+class TESTASSETMANAGER_API AItemActor : public AActor
+{
+	GENERATED_BODY()
+	
+public:	
+	AItemActor(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+
+protected:
+	virtual void BeginPlay() override;
+
+public:	
+	virtual void Tick(float DeltaTime) override;
+
+	void SetStaticMesh(UStaticMesh* mesh);
+
+private:
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* staticMeshComponent;
+};
+
+・コンストラクタでUStaticMeshComponentを生成し、メンバに保持
+　これを用いて手順③にてStaticMeshをアクターにセットする
+AItemActor::AItemActor(const FObjectInitializer& ObjectInitializer) : AActor(ObjectInitializer)
+{
+ 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+
+	staticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MESH"));
+}
