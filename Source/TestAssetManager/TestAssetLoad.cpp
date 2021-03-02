@@ -8,9 +8,6 @@
 #include <TestAssetManager\Armor\ItemDataAsset_ArmorItem.h>
 #include <TestAssetManager\ItemActor.h>
 
-TArray<FAssetData> weaponList;
-TArray<FAssetData> armorList;
-
 // Sets default values
 ATestAssetLoad::ATestAssetLoad()
 {
@@ -28,8 +25,11 @@ void ATestAssetLoad::DrawItem()
 {
 	UE_LOG(LogTemp, Display, TEXT("Start Draw Load Item"))
 
-		// 自作アセットマネージャークラス取得
-		UMyAssetManager& assetManager = UMyAssetManager::GetObj();
+	// 自作アセットマネージャークラス取得
+	UMyAssetManager& assetManager = UMyAssetManager::GetObj();
+
+	TArray<FAssetData> weaponList;
+	TArray<FAssetData> armorList;
 
 	// 武器アセットのリストを取得
 	assetManager.GetPrimaryAssetDataList(assetManager.WeaponItemType, weaponList);
